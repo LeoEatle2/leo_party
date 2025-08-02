@@ -136,29 +136,54 @@ class NeonRSVPForm {
         button.style.animation = 'pulse 0.5s ease-in-out infinite';
         button.disabled = true;
 
-        // 模拟API调用
-        await new Promise(resolve => setTimeout(resolve, 1500));
+        try {
+            // 调用真实的webhook接口
+            const response = await fetch('https://www.kdocs.cn/chatflow/api/v2/func/webhook/30i79TuVmCowEqq1iiwSN3Lhlff', {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: {
+                    'Content-Type': 'raw',
+                    'Origin': 'www.kdocs.cn'
+                },
+                body: JSON.stringify({
+                    name: name,
+                })
+            });
 
-        // 霓虹成功效果
-        this.form.style.transform = 'scale(0.9)';
-        this.form.style.opacity = '0';
-        
-        setTimeout(() => {
-            this.form.style.display = 'none';
-            this.successMessage.classList.remove('hidden');
-            this.successMessage.style.animation = 'fadeInUp 0.5s ease-out';
-        }, 300);
 
-        // 保存到本地存储
-        const attendees = JSON.parse(localStorage.getItem('leo-party-attendees') || '[]');
-        attendees.push({
-            name,
-            timestamp: new Date().toISOString()
-        });
-        localStorage.setItem('leo-party-attendees', JSON.stringify(attendees));
+            console.log('Webhook响应:', response);
 
-        // 添加霓虹庆祝效果
-        this.addCelebrationEffect();
+            // 霓虹成功效果
+            this.form.style.transform = 'scale(0.9)';
+            this.form.style.opacity = '0';
+            
+            setTimeout(() => {
+                this.form.style.display = 'none';
+                this.successMessage.classList.remove('hidden');
+                this.successMessage.style.animation = 'fadeInUp 0.5s ease-out';
+            }, 300);
+
+            // 保存到本地存储
+            const attendees = JSON.parse(localStorage.getItem('leo-party-attendees') || '[]');
+            attendees.push({
+                name,
+                timestamp: new Date().toISOString(),
+                webhookResponse: result
+            });
+            localStorage.setItem('leo-party-attendees', JSON.stringify(attendees));
+
+            // 添加霓虹庆祝效果
+            this.addCelebrationEffect();
+
+        } catch (error) {
+            console.error('Webhook调用失败:', error);
+            this.showError('网络连接失败，请稍后重试');
+            
+            // 重置按钮状态
+            button.textContent = originalText;
+            button.style.animation = 'none';
+            button.disabled = false;
+        }
     }
 
     showError(message) {
