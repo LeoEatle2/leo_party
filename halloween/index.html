@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:title" content="LEO'S HALLOWEEN PARTY 邀请函" />
+    <meta property="og:description" content="TRICK OR TREAT" />
+    <meta property="og:image" content="./img/halloween.jpg" />
+    <title>LEO'S HALLOWEEN PARTY 邀请函</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Orbitron:wght@400;700;900&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --pumpkin: #ff7518;
+            --haunt-purple: #9d4edd;
+            --toxic-green: #39ff14;
+            --dark-bg: #0a0605;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: var(--dark-bg);
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .creepy-font {
+            font-family: 'Creepster', 'Noto Sans SC', cursive;
+            letter-spacing: 0.05em;
+        }
+
+        .neon-text {
+            text-shadow:
+                0 0 10px currentColor,
+                0 0 20px currentColor,
+                0 0 30px currentColor,
+                0 0 40px currentColor;
+        }
+
+        .neon-border {
+            box-shadow:
+                0 0 5px var(--pumpkin),
+                0 0 10px var(--pumpkin),
+                0 0 15px var(--pumpkin),
+                inset 0 0 5px var(--pumpkin);
+            border: 1px solid var(--pumpkin);
+        }
+
+        .neon-purple-border {
+            box-shadow:
+                0 0 5px var(--haunt-purple),
+                0 0 10px var(--haunt-purple),
+                0 0 15px var(--haunt-purple),
+                inset 0 0 5px var(--haunt-purple);
+            border: 1px solid var(--haunt-purple);
+        }
+
+        .grid-bg {
+            background-image:
+                linear-gradient(rgba(255, 117, 24, 0.08) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 117, 24, 0.08) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        .floating-geo {
+            position: absolute;
+            opacity: 0.5;
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 0 8px rgba(255, 117, 24, 0.6));
+            user-select: none;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(-5deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        /* 蝙蝠飞行动画 */
+        .bat {
+            position: fixed;
+            font-size: 2rem;
+            pointer-events: none;
+            z-index: 5;
+            animation: fly-across linear infinite;
+            opacity: 0.8;
+        }
+
+        @keyframes fly-across {
+            0% { transform: translateX(-10vw) translateY(0) scaleX(1); }
+            25% { transform: translateX(25vw) translateY(-6vh) scaleX(1); }
+            50% { transform: translateX(55vw) translateY(2vh) scaleX(1); }
+            75% { transform: translateX(80vw) translateY(-4vh) scaleX(1); }
+            100% { transform: translateX(115vw) translateY(0) scaleX(1); }
+        }
+
+        /* 烛光闪烁 */
+        @keyframes candle-flicker {
+            0%, 100% { opacity: 1; }
+            41% { opacity: 1; }
+            42% { opacity: 0.6; }
+            43% { opacity: 1; }
+            45% { opacity: 0.75; }
+            46% { opacity: 1; }
+            78% { opacity: 1; }
+            79% { opacity: 0.55; }
+            80% { opacity: 1; }
+        }
+
+        .flicker {
+            animation: candle-flicker 4s linear infinite;
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+        }
+
+        .glitch-text {
+            animation: glitch 0.3s ease-in-out infinite alternate;
+        }
+
+        .countdown-box {
+            background: rgba(10, 6, 5, 0.75);
+            border: 2px solid var(--pumpkin);
+            box-shadow:
+                0 0 20px var(--pumpkin),
+                inset 0 0 20px rgba(255, 117, 24, 0.12);
+        }
+
+        .motto-text {
+            background: linear-gradient(45deg, var(--pumpkin), var(--haunt-purple), var(--toxic-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s ease-in-out infinite;
+            text-shadow:
+                0.05em 0 0 #ff7518,
+                -0.05em -0.025em 0 #9d4edd,
+                0.025em 0.05em 0 #39ff14;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .neon-input {
+            background: rgba(10, 6, 5, 0.85);
+            border: 1px solid var(--pumpkin);
+            color: var(--pumpkin);
+            transition: all 0.3s ease;
+        }
+
+        .neon-input::placeholder {
+            color: rgba(255, 117, 24, 0.5);
+        }
+
+        .neon-input:focus {
+            box-shadow:
+                0 0 10px var(--pumpkin),
+                0 0 20px var(--pumpkin),
+                inset 0 0 10px rgba(255, 117, 24, 0.12);
+            outline: none;
+        }
+
+        .neon-button {
+            background: linear-gradient(45deg, var(--pumpkin), var(--haunt-purple));
+            border: none;
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .neon-button:hover {
+            box-shadow:
+                0 0 20px var(--pumpkin),
+                0 0 40px var(--haunt-purple),
+                0 0 60px var(--pumpkin);
+            transform: scale(1.05);
+        }
+
+        .neon-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.5s;
+        }
+
+        .neon-button:hover::before {
+            animation: shine 0.5s ease-in-out;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+    </style>
+</head>
+<body class="grid-bg">
+    <!-- 蝙蝠群 -->
+    <div class="bat" style="top: 12%; animation-duration: 18s;">🦇</div>
+    <div class="bat" style="top: 30%; animation-duration: 24s; animation-delay: 6s; font-size: 1.4rem;">🦇</div>
+    <div class="bat" style="top: 8%; animation-duration: 30s; animation-delay: 12s; font-size: 2.6rem;">🦇</div>
+
+    <!-- 浮动万圣节元素 -->
+    <div class="floating-geo top-1/4 left-1/4 text-5xl">🎃</div>
+    <div class="floating-geo top-1/3 right-1/4 text-4xl" style="animation-delay: 2s;">👻</div>
+    <div class="floating-geo bottom-1/4 left-1/3 text-3xl" style="animation-delay: 4s;">🕷️</div>
+    <div class="floating-geo bottom-1/3 right-1/3 text-6xl" style="animation-delay: 1s;">🎃</div>
+
+    <!-- 主容器 -->
+    <div class="min-h-screen flex flex-col items-center justify-center px-4 py-8 relative z-10">
+        <!-- 标题区域 - 初始单独展示 -->
+        <div id="title-container" class="fixed inset-0 flex items-center justify-center z-50">
+            <h1 class="text-6xl md:text-8xl font-black flicker">
+                <span id="main-title" class="motto-text creepy-font glitch-text">LEO'S HALLOWEEN</span>
+            </h1>
+        </div>
+
+        <!-- 内容区域 - 初始隐藏 -->
+        <div id="content-container">
+            <!-- 副标题 -->
+            <div class="text-center mb-12">
+                <div class="text-lg text-orange-400 neon-text">当夜幕降临，南瓜灯亮起</div>
+                <div class="text-lg text-orange-400 neon-text">百鬼夜行，群魔乱舞</div>
+                <div class="text-lg text-orange-400 neon-text">你，敢来赴约吗？</div>
+                <div class="text-lg text-purple-400 neon-text mt-2">🎃 TRICK OR TREAT 🎃</div>
+            </div>
+
+            <div class="mt-8 mb-8 flex justify-center">
+                <div class="relative">
+                    <img src="./img/halloween.jpg"
+                         alt="HALLOWEEN NIGHT"
+                         class="w-full max-w-2xl h-64 object-cover rounded-xl neon-border opacity-90 hover:opacity-100 transition-all duration-500 transform hover:scale-105">
+                </div>
+            </div>
+
+            <div class="text-center mb-12">
+                <p class="text-lg text-orange-300 mt-4"><span class="text-purple-400">时间：</span>2026年10月30日 22:00</p>
+                <p class="text-lg text-orange-300 mt-2"><span class="text-purple-400">地点：</span>Vincent's Homebar</p>
+                <p class="text-lg text-orange-300 mt-2"><span class="text-purple-400">Dress Code：</span>黑、白、红为主 🖤🤍❤️</p>
+            </div>
+
+            <!-- 倒计时区域 -->
+            <div class="mb-12">
+                <h3 class="text-2xl font-bold text-center mb-8 text-orange-400 neon-text mt-6">🕯️ 百鬼夜行倒计时 🕯️</h3>
+                <div class="flex gap-4 md:gap-6 justify-center">
+                    <div class="text-center">
+                        <div class="countdown-box w-20 h-20 md:w-24 md:h-24 rounded-lg flex items-center justify-center">
+                            <span id="days" class="text-3xl md:text-4xl font-bold text-orange-400">00</span>
+                        </div>
+                        <p class="text-sm text-purple-400 mt-2 font-bold">天</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="countdown-box w-20 h-20 md:w-24 md:h-24 rounded-lg flex items-center justify-center">
+                            <span id="hours" class="text-3xl md:text-4xl font-bold text-orange-400">00</span>
+                        </div>
+                        <p class="text-sm text-purple-400 mt-2 font-bold">时</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="countdown-box w-20 h-20 md:w-24 md:h-24 rounded-lg flex items-center justify-center">
+                            <span id="minutes" class="text-3xl md:text-4xl font-bold text-orange-400">00</span>
+                        </div>
+                        <p class="text-sm text-purple-400 mt-2 font-bold">分</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="countdown-box w-20 h-20 md:w-24 md:h-24 rounded-lg flex items-center justify-center">
+                            <span id="seconds" class="text-3xl md:text-4xl font-bold text-orange-400">00</span>
+                        </div>
+                        <p class="text-sm text-purple-400 mt-2 font-bold">秒</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 报名区域 -->
+            <div class="mb-12">
+                <div class="bg-black/50 border border-orange-500/50 rounded-2xl p-8 max-w-md w-full neon-border">
+                    <h3 class="text-2xl font-bold text-center mb-6 text-purple-400 neon-text">🎃 加入百鬼夜行 🎃</h3>
+                    <form id="rsvp-form" class="space-y-6">
+                        <div>
+                            <input
+                                type="text"
+                                id="name"
+                                placeholder="报上你的鬼怪代号"
+                                required
+                                class="w-full px-4 py-3 rounded-lg neon-input text-center text-lg"
+                            >
+                        </div>
+                        <button
+                            type="submit"
+                            class="w-full neon-button py-3 px-6 rounded-lg text-lg font-bold"
+                        >
+                            TRICK OR TREAT · 确认加入
+                        </button>
+                    </form>
+                    <div id="success-message" class="hidden mt-4 text-center">
+                        <p class="text-orange-400 text-lg font-bold">🎃 欢迎加入百鬼夜行！</p>
+                        <p class="text-purple-400 text-sm mt-2">10月30日，Vincent's Homebar 见 👻</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 霓虹装饰 -->
+        <div class="absolute inset-0 overflow-hidden pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-64 h-64 border border-orange-500/20 rounded-full animate-pulse"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-48 h-48 border border-purple-500/20 rounded-full animate-pulse" style="animation-delay: 1s;"></div>
+            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 border border-green-500/10 rounded-full animate-ping"></div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
