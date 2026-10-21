@@ -1,4 +1,4 @@
-// 霓虹灯倒计时功能
+// 万圣节倒计时功能
 class NeonCountdownTimer {
     constructor(targetDate) {
         this.targetDate = new Date(targetDate);
@@ -39,7 +39,7 @@ class NeonCountdownTimer {
         Object.entries(elements).forEach(([key, element]) => {
             const value = { days, hours, minutes, seconds }[key];
             const newValue = String(value).padStart(2, '0');
-            
+
             if (element.textContent !== newValue) {
                 element.textContent = newValue;
             }
@@ -52,7 +52,7 @@ class NeonCountdownTimer {
     }
 }
 
-// 霓虹浮动效果
+// 万圣节浮动效果
 class NeonFloatingEffect {
     constructor() {
         this.geoElements = document.querySelectorAll('.floating-geo');
@@ -61,7 +61,6 @@ class NeonFloatingEffect {
 
     init() {
         window.addEventListener('mousemove', (e) => this.handleMouseMove(e));
-        // this.addRandomGlow();
     }
 
     handleMouseMove(e) {
@@ -72,27 +71,13 @@ class NeonFloatingEffect {
             const speed = 0.5 + index * 0.2;
             const moveX = mouseX * speed * 30;
             const moveY = mouseY * speed * 30;
-            
+
             element.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${Date.now() * 0.01}deg)`;
         });
     }
-
-    addRandomGlow() {
-        setInterval(() => {
-            this.geoElements.forEach(element => {
-                const colors = ['#ff006e', '#00f5ff', '#8b5cf6'];
-                const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                element.style.boxShadow = `0 0 20px ${randomColor}`;
-                
-                setTimeout(() => {
-                    element.style.boxShadow = 'none';
-                }, 1000);
-            });
-        }, 3000);
-    }
 }
 
-// 霓虹表单处理
+// 万圣节表单处理
 class NeonRSVPForm {
     constructor() {
         this.form = document.getElementById('rsvp-form');
@@ -110,7 +95,7 @@ class NeonRSVPForm {
         input.addEventListener('input', (e) => {
             const value = e.target.value;
             if (value.length > 0) {
-                e.target.style.textShadow = '0 0 10px #00f5ff';
+                e.target.style.textShadow = '0 0 10px #ff7518';
             } else {
                 e.target.style.textShadow = 'none';
             }
@@ -119,20 +104,20 @@ class NeonRSVPForm {
 
     async handleSubmit(e) {
         e.preventDefault();
-        
+
         const nameInput = document.getElementById('name');
         const name = nameInput.value.trim();
-        
+
         if (!name) {
-            this.showError('请输入你的代号');
+            this.showError('请输入你的鬼怪代号');
             return;
         }
 
-        // 霓虹提交动画
+        // 提交动画
         const button = this.form.querySelector('button[type="submit"]');
         const originalText = button.textContent;
-        
-        button.textContent = '传送中...';
+
+        button.textContent = '召唤中...';
         button.style.animation = 'pulse 0.5s ease-in-out infinite';
         button.disabled = true;
 
@@ -150,13 +135,12 @@ class NeonRSVPForm {
                 })
             });
 
-
             console.log('Webhook响应:', response);
 
-            // 霓虹成功效果
+            // 成功效果
             this.form.style.transform = 'scale(0.9)';
             this.form.style.opacity = '0';
-            
+
             setTimeout(() => {
                 this.form.style.display = 'none';
                 this.successMessage.classList.remove('hidden');
@@ -167,18 +151,17 @@ class NeonRSVPForm {
             const attendees = JSON.parse(localStorage.getItem('leo-party-attendees') || '[]');
             attendees.push({
                 name,
-                timestamp: new Date().toISOString(),
-                webhookResponse: result
+                timestamp: new Date().toISOString()
             });
             localStorage.setItem('leo-party-attendees', JSON.stringify(attendees));
 
-            // 添加霓虹庆祝效果
+            // 添加庆祝效果
             this.addCelebrationEffect();
 
         } catch (error) {
             console.error('Webhook调用失败:', error);
             this.showError('网络连接失败，请稍后重试');
-            
+
             // 重置按钮状态
             button.textContent = originalText;
             button.style.animation = 'none';
@@ -188,9 +171,9 @@ class NeonRSVPForm {
 
     showError(message) {
         const errorDiv = document.createElement('div');
-        errorDiv.className = 'text-pink-400 text-sm mt-2 text-center';
+        errorDiv.className = 'text-purple-400 text-sm mt-2 text-center';
         errorDiv.textContent = message;
-        
+
         this.form.appendChild(errorDiv);
         setTimeout(() => {
             errorDiv.style.animation = 'fadeOut 0.3s ease-out';
@@ -199,21 +182,21 @@ class NeonRSVPForm {
     }
 
     addCelebrationEffect() {
-        // 创建霓虹粒子效果
+        // 创建万圣节粒子效果
         for (let i = 0; i < 20; i++) {
             const particle = document.createElement('div');
             particle.style.position = 'fixed';
             particle.style.width = '4px';
             particle.style.height = '4px';
-            particle.style.backgroundColor = ['#ff006e', '#00f5ff', '#8b5cf6'][Math.floor(Math.random() * 3)];
+            particle.style.backgroundColor = ['#ff7518', '#9d4edd', '#39ff14'][Math.floor(Math.random() * 3)];
             particle.style.borderRadius = '50%';
             particle.style.pointerEvents = 'none';
             particle.style.left = Math.random() * window.innerWidth + 'px';
             particle.style.top = window.innerHeight / 2 + 'px';
             particle.style.boxShadow = `0 0 10px ${particle.style.backgroundColor}`;
-            
+
             document.body.appendChild(particle);
-            
+
             const animation = particle.animate([
                 { transform: 'translateY(0px) scale(1)', opacity: 1 },
                 { transform: `translateY(-${Math.random() * 200 + 100}px) scale(0)`, opacity: 0 }
@@ -221,7 +204,7 @@ class NeonRSVPForm {
                 duration: 1000 + Math.random() * 1000,
                 easing: 'ease-out'
             });
-            
+
             animation.onfinish = () => particle.remove();
         }
     }
@@ -230,7 +213,7 @@ class NeonRSVPForm {
 // motto.js风格的标题动画
 class MottoTextAnimation {
     constructor() {
-        this.targetText = "LEO'S PARTY 6.0";
+        this.targetText = "LEO'S HALLOWEEN";
         this.chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+-=[]{}|;:,.<>?";
         this.element = document.getElementById('main-title');
         this.init();
@@ -243,7 +226,6 @@ class MottoTextAnimation {
 
     animateTitle() {
         let iterations = 0;
-        const maxIterations = 15;
         const interval = setInterval(() => {
             this.element.textContent = this.targetText
                 .split("")
@@ -254,7 +236,7 @@ class MottoTextAnimation {
                     return this.chars[Math.floor(Math.random() * this.chars.length)];
                 })
                 .join("");
-            
+
             iterations += 1/3;
             if (iterations >= this.targetText.length) {
                 clearInterval(interval);
@@ -271,13 +253,13 @@ class MottoTextAnimation {
                 const originalText = this.element.textContent;
                 const randomIndex = Math.floor(Math.random() * originalText.length);
                 const randomChar = this.chars[Math.floor(Math.random() * this.chars.length)];
-                
-                const glitchedText = originalText.substring(0, randomIndex) + 
-                                   randomChar + 
+
+                const glitchedText = originalText.substring(0, randomIndex) +
+                                   randomChar +
                                    originalText.substring(randomIndex + 1);
-                
+
                 this.element.textContent = glitchedText;
-                
+
                 setTimeout(() => {
                     this.element.textContent = originalText;
                 }, 100);
@@ -293,24 +275,7 @@ class EnhancedGlitchManager {
     }
 
     init() {
-        // this.addGlobalGlitch();
         this.addTextGlitch();
-        // this.addBackgroundGlitch();
-    }
-
-    addGlobalGlitch() {
-        // 全局故障效果
-        setInterval(() => {
-            if (Math.random() > 0.9) {
-                document.body.style.filter = 'hue-rotate(90deg) saturate(2)';
-                document.body.style.transform = `translate(${Math.random() * 4 - 2}px, ${Math.random() * 4 - 2}px)`;
-                
-                setTimeout(() => {
-                    document.body.style.filter = 'none';
-                    document.body.style.transform = 'none';
-                }, 100);
-            }
-        }, 3000);
     }
 
     addTextGlitch() {
@@ -321,7 +286,7 @@ class EnhancedGlitchManager {
                 if (Math.random() > 0.95) {
                     element.style.transform = `skew(${Math.random() * 10 - 5}deg)`;
                     element.style.opacity = Math.random() * 0.3 + 0.7;
-                    
+
                     setTimeout(() => {
                         element.style.transform = 'none';
                         element.style.opacity = '1';
@@ -330,27 +295,9 @@ class EnhancedGlitchManager {
             }, 1000);
         });
     }
-
-    addBackgroundGlitch() {
-        // 背景网格故障效果
-        const grid = document.querySelector('.grid-bg');
-        if (grid) {
-            setInterval(() => {
-                if (Math.random() > 0.8) {
-                    grid.style.backgroundSize = `${50 + Math.random() * 20}px ${50 + Math.random() * 20}px`;
-                    grid.style.opacity = Math.random() * 0.3 + 0.7;
-                    
-                    setTimeout(() => {
-                        grid.style.backgroundSize = '50px 50px';
-                        grid.style.opacity = '1';
-                    }, 200);
-                }
-            }, 2000);
-        }
-    }
 }
 
-// 背景霓虹网格动画
+// 背景网格动画
 class NeonGridAnimation {
     constructor() {
         this.init();
@@ -383,7 +330,7 @@ class NeonLoadingAnimation {
 
         contentDOM.style.opacity = '0';
         contentDOM.style.filter = 'blur(10px)';
-        
+
         setTimeout(() => {
             contentDOM.style.transition = 'opacity 1.5s ease, filter 1.5s ease';
             contentDOM.style.opacity = '1';
@@ -391,14 +338,14 @@ class NeonLoadingAnimation {
 
             titleDOM.style.position = 'relative';
             titleDOM.style.marginBottom = '30px';
-            
+
             const mainTitle = document.getElementById('main-title');
             if (mainTitle) {
                 mainTitle.style.fontSize = 'smaller';
             }
         }, 3000);
 
-        // 添加扫描线效果
+        // 添加雾气扫描效果
         this.addScanlines();
     }
 
@@ -409,11 +356,11 @@ class NeonLoadingAnimation {
         scanlines.style.left = '0';
         scanlines.style.width = '100%';
         scanlines.style.height = '100%';
-        scanlines.style.background = 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0, 245, 255, 0.03) 2px, rgba(0, 245, 255, 0.03) 4px)';
+        scanlines.style.background = 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255, 117, 24, 0.03) 2px, rgba(255, 117, 24, 0.03) 4px)';
         scanlines.style.pointerEvents = 'none';
         scanlines.style.zIndex = '1000';
         scanlines.style.animation = 'scan 8s linear infinite';
-        
+
         const style = document.createElement('style');
         style.textContent = `
             @keyframes scan {
@@ -428,9 +375,9 @@ class NeonLoadingAnimation {
 
 // 初始化应用
 document.addEventListener('DOMContentLoaded', () => {
-    // 设置目标日期为2025年8月11日20:00
-    const targetDate = '2025-08-09T20:00:00';
-    
+    // 万圣夜 2026年10月31日22:00
+    const targetDate = '2026-10-31T22:00:00';
+
     new NeonLoadingAnimation();
     new NeonCountdownTimer(targetDate);
     new NeonFloatingEffect();
@@ -438,9 +385,6 @@ document.addEventListener('DOMContentLoaded', () => {
     new NeonGridAnimation();
     new MottoTextAnimation();
     new EnhancedGlitchManager();
-
-    // 移除键盘控制效果
-    // 已移除空格键触发爆发效果
 });
 
 // 添加CSS动画
@@ -450,15 +394,15 @@ additionalStyles.textContent = `
         from { opacity: 1; }
         to { opacity: 0; }
     }
-    
+
     @keyframes fadeInUp {
-        from { 
-            opacity: 0; 
-            transform: translateY(30px); 
+        from {
+            opacity: 0;
+            transform: translateY(30px);
         }
-        to { 
-            opacity: 1; 
-            transform: translateY(0); 
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
     }
 `;
