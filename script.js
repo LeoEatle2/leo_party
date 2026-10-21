@@ -375,8 +375,8 @@ class NeonLoadingAnimation {
 
 // 初始化应用
 document.addEventListener('DOMContentLoaded', () => {
-    // 万圣夜 2026年10月31日22:00
-    const targetDate = '2026-10-31T22:00:00';
+    // 万圣派对 2026年10月30日22:00
+    const targetDate = '2026-10-30T22:00:00';
 
     new NeonLoadingAnimation();
     new NeonCountdownTimer(targetDate);
